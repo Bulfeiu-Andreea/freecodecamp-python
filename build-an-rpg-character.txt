@@ -1,0 +1,50 @@
+** start of main.py **
+
+def create_character(name, strength, intelligence, charisma):
+    # --- Validation Logic ---
+    if not isinstance(name, str):
+        return 'The character name should be a string'
+    if name == "":
+        return 'The character should have a name'
+    if len(name) > 10:
+        return 'The character name is too long'
+    if " " in name:
+        return 'The character name should not contain spaces'
+    
+    if not (isinstance(strength, int) and 
+            isinstance(intelligence, int) and 
+            isinstance(charisma, int)):
+        return 'All stats should be integers'
+    
+    if strength < 1 or intelligence < 1 or charisma < 1:
+        return 'All stats should be no less than 1'
+    if strength > 4 or intelligence > 4 or charisma > 4:
+        return 'All stats should be no more than 4'
+    if strength + intelligence + charisma != 7:
+        return 'The character should start with 7 points'
+
+    # --- Formatting Logic ---
+    full_point = "●"
+    empty_point = "○"
+    
+    stats = [
+        ("STR", strength),
+        ("INT", intelligence),
+        ("CHA", charisma)
+    ]
+    
+    stat_lines = []
+    for abrev, value in stats:
+        # Since the max stat is 4 based on your validation, 
+        # I've kept the bar length at 10 as per your design.
+        bar = (full_point * value) + (empty_point * (10 - value))
+        stat_lines.append(f"{abrev} {bar}")
+    
+    result = f"{name}\n" + "\n".join(stat_lines)
+    return result
+
+# Example Usage:
+print(create_character("Rex", 3, 2, 2))
+
+** end of main.py **
+
